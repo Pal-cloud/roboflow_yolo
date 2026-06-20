@@ -1,3 +1,4 @@
 roboflow
 pyyaml
 ultralytics
+python-dotenv

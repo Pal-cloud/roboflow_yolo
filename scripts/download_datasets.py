@@ -1,20 +1,27 @@
 """
 Script de descarga de datasets desde Roboflow Universe.
-Requiere: pip install roboflow
+Requiere: pip install roboflow python-dotenv
 
 USO:
     1. Crea una cuenta gratuita en https://app.roboflow.com/
     2. Ve a Settings > API Key y copia tu API key
-    3. Ejecuta: python scripts/download_datasets.py
+    3. Añádela en el fichero .env (en la raíz del proyecto):
+           ROBOFLOW_API_KEY=rf_xxxxxxxxxxxxxx
+    4. Ejecuta: python scripts/download_datasets.py
 
 Los datasets se guardan en data/raw/<marca>/
+⚠️  El fichero .env está en .gitignore → la key NO se sube a GitHub.
 """
 
 from roboflow import Roboflow
+from dotenv import load_dotenv
 import os
 
+# Carga variables del fichero .env (raíz del proyecto)
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+
 # ─── CONFIGURACIÓN ────────────────────────────────────────────────────────────
-API_KEY = "TU_API_KEY_AQUI"   # <-- reemplaza con tu API key de Roboflow
+API_KEY = os.getenv("ROBOFLOW_API_KEY", "")   # se lee desde .env, nunca en el código
 OUTPUT_FORMAT = "yolov8"       # formato compatible con YOLOv8/Ultralytics
 BASE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 
@@ -67,8 +74,10 @@ def download_all():
 
 
 if __name__ == "__main__":
-    if API_KEY == "TU_API_KEY_AQUI":
-        print("⚠️  ERROR: Debes añadir tu API Key de Roboflow en este script.")
-        print("   Ve a https://app.roboflow.com/ → Settings → API Key")
+    if not API_KEY:
+        print("⚠️  ERROR: No se encontró ROBOFLOW_API_KEY.")
+        print("   Crea el fichero .env en la raíz del proyecto con:")
+        print("   ROBOFLOW_API_KEY=rf_xxxxxxxxxxxxxx")
+        print("   (El .env está en .gitignore y NO se sube a GitHub)")
     else:
         download_all()
