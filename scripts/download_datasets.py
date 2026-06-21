@@ -27,24 +27,25 @@ BASE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 
 # ─── DATASETS SELECCIONADOS ───────────────────────────────────────────────────
 # Cada entrada: (workspace_slug, project_slug, version, carpeta_destino)
+#
+# NOKIA: el dataset nikitas (300 imgs) no tiene versión exportada.
+#   Alternativa: aditya-chico/nokia  → 28 imgs, 5 versiones disponibles,
+#   clases head/c1/c2 (piezas de móvil Nokia), única opción descargable por API.
+#   ⚠️  Para tener el logo Nokia real, ve a:
+#       https://universe.roboflow.com/nikitas-workspace-1jw6b/nokia-jfqln
+#       → Fork Dataset → genera una versión → descarga manualmente.
+#
+# SAMSUNG: 606 imágenes, 2 versiones, clase "samsung"  ✅
+# APPLE:   1091 imágenes, 4 versiones, clase "Logo"    ✅
 DATASETS = [
-    # Nokia – 300 imágenes
-    ("nikitas-workspace-1jw6b", "nokia-jfqln", 1, "nokia"),
+    # Nokia (alternativa con versiones exportables)
+    ("aditya-chico", "nokia", 5, "nokia"),
 
-    # Samsung – 606 imágenes  ⭐11
-    ("holland", "samsung-le5e2", 1, "samsung"),
+    # Samsung – 606 imágenes  ⭐13 descargas
+    ("holland", "samsung-le5e2", 2, "samsung"),
 
-    # Apple/iPhone logo – 1090 imágenes  ⭐6
-    ("melnyk-workspace", "apple-logo-smfdm", 1, "iphone"),
-
-    # Xiaomi Logo A – 50 imágenes  ⭐2 + 1 modelo
-    ("boe-gpvhd", "xiaomi-logo", 1, "xiaomi"),
-
-    # Xiaomi Logo B – 50 imágenes (combinar con el anterior)
-    # ("hand-joint", "xiaomi-logo-detection", 1, "xiaomi"),
-
-    # MOTOROLA: no hay dataset público → crear manualmente
-    # Ver docs/dataset_comparison_table.md → sección Motorola
+    # Apple/iPhone logo – 1091 imágenes  ⭐6 estrellas
+    ("melnyk-workspace", "apple-logo-smfdm", 4, "iphone"),
 ]
 
 # ─── DESCARGA ─────────────────────────────────────────────────────────────────
